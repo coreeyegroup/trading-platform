@@ -1,0 +1,21 @@
+services:
+
+  trend_strategy_service:
+    path: services/trend-strategy-service
+    start_command: python3 service.py
+    restart: true
+    depends_on: []
+
+  signal_validator:
+    path: services/signal-validator
+    start_command: python3 service.py
+    restart: true
+    depends_on:
+      - trend_strategy_service
+
+  risk_engine:
+    path: services/risk-engine
+    start_command: python3 service.py
+    restart: true
+    depends_on:
+      - signal_validator

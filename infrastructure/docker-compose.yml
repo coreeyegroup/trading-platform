@@ -1,0 +1,61 @@
+services:
+
+  redis:
+    image: redis:7
+    container_name: trading-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - trading-network
+    restart: always
+
+  postgres:
+    image: postgres:16
+    container_name: trading-postgres
+    environment:
+      POSTGRES_USER: trading
+      POSTGRES_PASSWORD: tradingpass
+      POSTGRES_DB: trading_system
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - trading-network
+    restart: always
+
+  node-red:
+    image: nodered/node-red:latest
+    container_name: trading-node-red
+    ports:
+      - "1880:1880"
+    volumes:
+      - node_red_data:/data
+    networks:
+      - trading-network
+    restart: always
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: trading-grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - trading-network
+    restart: always
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: trading-prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - trading-network
+    restart: always
+
+networks:
+  trading-network:
+
+volumes:
+  postgres_data:
+  node_red_data:
