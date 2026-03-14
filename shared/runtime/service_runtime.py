@@ -1,55 +1,57 @@
-"""
-Universal service runtime.
-
-Provides the execution loop for all trading microservices.
-"""
-
 import json
-from shared.events.redis_client import redis_client
+import time
+import redis
 
 
 class ServiceRuntime:
-
     def __init__(self, stream_name, handler):
-        """
-        stream_name: Redis stream to consume
-        handler: event processing handler
-        """
-
         self.stream_name = stream_name
         self.handler = handler
 
+        self.redis_client = redis.Redis(
+            host="localhost",
+            port=6379,
+            decode_responses=True
+        )
+
+        # last processed message id
+        self.last_id = "0"
 
     def start(self):
-
         print(f"Starting service runtime for stream: {self.stream_name}")
 
-        last_id = "0-0"
-
         while True:
+            try:
+                messages = self.redis_client.xread(
+                    {self.stream_name: self.last_id},
+                    block=5000,
+                    count=10
+                )
 
-            messages = redis_client.xread(
-                {self.stream_name: last_id},
-                block=0
-            )
+                if not messages:
+                    continue
 
-            for stream, events in messages:
+                for stream, stream_messages in messages:
+                    for message_id, message_data in stream_messages:
 
-                for event_id, payload in events:
+                        self.last_id = message_id
 
-                    try:
+                        try:
+                            raw_event = message_data.get("event")
 
-                        data = payload.get("data")
+                            if raw_event is None:
+                                print("Skipping malformed event:", message_data)
+                                continue
 
-                        if data:
-                            event = json.loads(data)
-                        else:
-                            event = payload
+                            event = json.loads(raw_event)
 
-                        self.handler.handle(event)
+                            # pass full event envelope to handler
+                            self.handler.handle(event)
 
-                        last_id = event_id
+                        except Exception as e:
+                            print("Event processing error:", e)
 
-                    except Exception as e:
+            except Exception as e:
+                print("Runtime error:", e)
+                time.sleep(1)
 
-                        print("Event processing error:", e)

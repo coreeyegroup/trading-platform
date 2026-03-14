@@ -1,24 +1,23 @@
 import json
-from datetime import datetime
-from .redis_client import redis_client
+from redis import Redis
+from shared.events.event_envelope import create_event
 
 
 class EventPublisher:
 
-    def _serialize(self, obj):
-        """
-        Convert non-JSON types into serializable format.
-        """
+    def __init__(self):
 
-        if isinstance(obj, datetime):
-            return obj.isoformat()
+        self.redis = Redis(
+            host="localhost",
+            port=6379,
+            decode_responses=True
+        )
 
-        raise TypeError(f"Type {type(obj)} not serializable")
+    def publish(self, stream, data, event_type):
 
+        event = create_event(event_type, data)
 
-    def publish(self, stream_name: str, event: dict):
-
-        redis_client.xadd(
-            stream_name,
-            {"data": json.dumps(event, default=self._serialize)}
+        self.redis.xadd(
+            stream,
+            {"event": json.dumps(event)}
         )

@@ -1,52 +1,37 @@
 from datetime import datetime
+import random
 
-from shared.runtime.event_handler import EventHandler
-from shared.database.repositories.signal_repository import SignalRepository
 from shared.events.event_publisher import EventPublisher
 
 
-STRATEGY_NAME = "trend_strategy"
-
-
-class TrendStrategyHandler(EventHandler):
+class TrendStrategyHandler:
 
     def __init__(self):
-        self.repo = SignalRepository()
+
         self.publisher = EventPublisher()
-
-    def generate_signal(self, trend, momentum):
-
-        if trend == "up" and momentum == "positive":
-            return "BUY", 0.75
-
-        if trend == "down" and momentum == "negative":
-            return "SELL", 0.75
-
-        return None, None
 
     def handle(self, event):
 
-        symbol = event["symbol"]
-        trend = event["trend"]
-        momentum = event["momentum"]
+        data = event["data"]
 
-        signal, confidence = self.generate_signal(trend, momentum)
+        symbol = data.get("symbol", "XAUUSD")
 
-        if not signal:
-            return
+        side = random.choice(["BUY", "SELL"])
 
-        signal_data = {
-            "strategy": STRATEGY_NAME,
+        confidence = round(random.uniform(0.6, 0.9), 2)
+
+        signal = {
+            "strategy": "trend_strategy",
             "symbol": symbol,
-            "signal": signal,
+            "signal": side,
             "confidence": confidence,
-            "created_at": datetime.utcnow()
+            "created_at": datetime.utcnow().isoformat()
         }
 
-        # Save to database
-        self.repo.insert_signal(signal_data)
+        print("strategy signal:", signal)
 
-        # Publish to next stage
-        self.publisher.publish("strategy_signals", signal_data)
-
-        print("strategy signal:", signal_data)
+        self.publisher.publish(
+            "strategy_signals",
+            signal,
+            "strategy_signal"
+        )

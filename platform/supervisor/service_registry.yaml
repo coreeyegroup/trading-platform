@@ -13,9 +13,10 @@ services:
     depends_on:
       - trend_strategy_service
 
-  risk_engine:
-    path: services/risk-engine
+  policy_engine:
+    path: services/policy-engine
     start_command: python3 service.py
     restart: true
     depends_on:
       - signal_validator
+
