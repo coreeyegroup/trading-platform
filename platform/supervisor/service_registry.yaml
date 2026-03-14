@@ -20,3 +20,8 @@ services:
     depends_on:
       - signal_validator
 
+  risk_engine:
+  command: python services/risk-engine/risk_engine.py
+  enabled: true
+
+
