@@ -1,7 +1,5 @@
 # Event Pipeline
 
-The trading platform operates on an event-driven pipeline.
-
 ```mermaid
 graph TD
 
