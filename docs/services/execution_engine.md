@@ -1,14 +1,52 @@
 # Execution Engine
 
-The execution engine converts approved orders into broker execution requests.
+## Overview
+
+The Execution Engine converts approved orders into broker API requests.
+
+---
 
 ## Responsibilities
 
-- Receive risk approved orders
-- Route orders to broker adapter
-- Track order execution
-- Emit execution reports
+- send orders to broker
+- track order execution
+- publish execution reports
 
-## Auto Generated API Documentation
+---
 
-::: services.execution_engine
+## Inputs
+
+| Source | Stream | Description |
+|------|------|------|
+| risk_engine | risk_approved_orders | approved orders |
+
+---
+
+## Outputs
+
+| Destination | Stream | Description |
+|------|------|------|
+| broker_adapter | execution_orders | broker order request |
+
+---
+
+## Event Streams
+
+risk_approved_orders  
+execution_orders  
+execution_reports  
+
+---
+
+## Dependencies
+
+- broker adapter
+- Redis Streams
+
+---
+
+## Failure Modes
+
+- broker API failure
+- order rejection
+- timeout during execution
