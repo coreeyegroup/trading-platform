@@ -22,12 +22,11 @@ markdown_extensions:
   - pymdownx.tabbed
 
 nav:
-
   - Home: index.md
 
   - Architecture:
-      - System Overview: architecture/system_overview.md
-      - Core Layers: architecture/core_layers.md
+      - System Architecture: architecture/system_architecture.md
+      - Service Architecture: architecture/service_architecture.md
       - Event Pipeline: architecture/event_pipeline.md
       - Infrastructure: architecture/infrastructure.md
 
@@ -51,7 +50,6 @@ nav:
 
   - Database:
       - PostgreSQL Schema: database/postgres_schema.md
-      - TimescaleDB Schema: database/timescaledb_schema.md
       - Redis Streams: database/redis_streams.md
 
   - Automation:
@@ -68,3 +66,9 @@ nav:
 
   - Architecture Decisions:
       - ADR Index: adr/index.md
+
+  - Auto Generated:
+      - Redis Streams: auto/redis_streams.md
+      - Docker Services: auto/docker_services.md
+      - Database Tables: auto/database_tables.md
+      - Full Architecture Map: auto/full_architecture_map.md

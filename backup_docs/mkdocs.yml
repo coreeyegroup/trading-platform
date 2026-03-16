@@ -1,0 +1,88 @@
+site_name: Trading Platform Documentation
+site_description: Algorithmic Trading Infrastructure
+site_author: Trading Platform Engineering
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - search.highlight
+    - content.code.copy
+
+plugins:
+  - search
+  - mkdocstrings
+  - mermaid2
+
+markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.tabbed
+
+nav:
+  - Home: index.md
+
+  - Architecture:
+      - System Overview: architecture/system_overview.md
+      - Core Layers: architecture/core_layers.md
+      - Event Pipeline: architecture/event_pipeline.md
+      - Infrastructure: architecture/infrastructure.md
+
+  - Services:
+      - Market Data Service: services/market_data_service.md
+      - Candle Builder: services/candle_builder.md
+      - Market Context Engine: services/market_context_engine.md
+      - Strategy Engine: services/strategy_engine.md
+      - Signal Validator: services/signal_validator.md
+      - Policy Engine: services/policy_engine.md
+      - Risk Engine: services/risk_engine.md
+      - Execution Engine: services/execution_engine.md
+      - Broker Adapter: services/broker_adapter.md
+      - Portfolio Engine: services/portfolio_engine.md
+      - Trade Monitor: services/trade_monitor.md
+
+  - Pipelines:
+      - Market Data Pipeline: pipelines/market_data_pipeline.md
+      - Signal Pipeline: pipelines/signal_pipeline.md
+      - Execution Pipeline: pipelines/execution_pipeline.md
+
+  - Database:
+      - PostgreSQL Schema: database/postgres_schema.md
+      - TimescaleDB Schema: database/timescaledb_schema.md
+      - Redis Streams: database/redis_streams.md
+
+  - Automation:
+      - n8n Workflows: automation/n8n_workflows.md
+      - Alerts: automation/alerts.md
+
+  - Observability:
+      - Prometheus Metrics: observability/prometheus_metrics.md
+      - Grafana Dashboards: observability/grafana_dashboards.md
+
+  - Scripts:
+      - Platform Startup: scripts/start_trading_platform.md
+      - Deployment: scripts/deployment.md
+
+  - Architecture Decisions:
+      - ADR Index: adr/index.md
+
+  - Blueprint:
+      - System Architecture: blueprint/system_architecture.md
+      - Event Driven Architecture: blueprint/event_driven_architecture.md
+      - Service Design: blueprint/service_design.md
+      - Event Bus Design: blueprint/event_bus_design.md
+      - Data Storage Design: blueprint/data_storage_design.md
+      - Execution Pipeline: blueprint/execution_pipeline_design.md
+      - Risk Control: blueprint/risk_control_design.md
+      - Strategy Engine: blueprint/strategy_engine_design.md
+      - Observability: blueprint/observability_design.md
+      - Deployment Architecture: blueprint/deployment_architecture.md
+
+  - Auto Generated:
+      - Redis Streams: auto/redis_streams.md
+      - Docker Services: auto/docker_services.md
+      - Database Tables: auto/database_tables.md
+      - Architecture Diagram: auto/architecture_diagram.md
+      - Full Architecture Map: auto/full_architecture_map.md
