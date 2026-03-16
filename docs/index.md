@@ -1,13 +1,17 @@
-# Trading Platform Documentation
+# Welcome to MkDocs
 
-This documentation describes the architecture and operation of the algorithmic trading platform.
+For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
-## Core Sections
+## Commands
 
-Architecture  
-Services  
-Event Pipelines  
-Database  
-Automation  
-Observability  
-Operations
+* `mkdocs new [dir-name]` - Create a new project.
+* `mkdocs serve` - Start the live-reloading docs server.
+* `mkdocs build` - Build the documentation site.
+* `mkdocs -h` - Print help message and exit.
+
+## Project layout
+
+    mkdocs.yml    # The configuration file.
+    docs/
+        index.md  # The documentation homepage.
+        ...       # Other markdown pages, images and other files.
