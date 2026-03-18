@@ -27,6 +27,7 @@ nav:
   - Architecture:
       - System Architecture: architecture/system_architecture.md
       - Service Architecture: architecture/service_architecture.md
+      - Service Map: architecture/service_map.md
       - Event Pipeline: architecture/event_pipeline.md
       - Infrastructure: architecture/infrastructure.md
 
@@ -51,6 +52,7 @@ nav:
   - Database:
       - PostgreSQL Schema: database/postgres_schema.md
       - Redis Streams: database/redis_streams.md
+      - Schema Details: database/schema/index.md
 
   - Automation:
       - n8n Workflows: automation/n8n_workflows.md
@@ -68,6 +70,9 @@ nav:
       - ADR Index: adr/index.md
 
   - Auto Generated:
+      - System Status: auto/system_status.md
+      - Trading Activity: auto/trading_activity.md
+      - Market Pipeline: auto/market_pipeline.md
       - Redis Streams: auto/redis_streams.md
       - Docker Services: auto/docker_services.md
       - Database Tables: auto/database_tables.md
